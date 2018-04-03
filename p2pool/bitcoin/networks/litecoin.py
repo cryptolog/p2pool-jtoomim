@@ -13,7 +13,7 @@ ADDRESS_VERSION = 48
 RPC_PORT = 10332
 RPC_CHECK = defer.inlineCallbacks(lambda bitcoind: defer.returnValue(
             (yield helper.check_block_header(bitcoind, '12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2')) and # genesis block
-            (yield bitcoind.rpc_getblockchaininfo())['chain'] != 'test'
+            (yield bitcoind.rpc_getblockchaininfo())['chain'] == 'main'
         ))
 SUBSIDY_FUNC = lambda height: 50*100000000 >> (height + 1)//840000
 POW_FUNC = lambda data: pack.IntType(256).unpack(__import__('ltc_scrypt').getPoWHash(data))
